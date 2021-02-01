@@ -11,6 +11,7 @@ T = 1
 N = 100 # N + 1 elementer
 dt = 1
 dz = L / N
+k_w = 6.97 * ^^10(-5) #m/s
 
 # Diffusjonsparameter
 def K(z):
