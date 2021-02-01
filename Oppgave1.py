@@ -105,12 +105,14 @@ def tdma(A, b):
     return x
 
 def simulate():
+    #Konsentrasjon for et gitt tidspukt i en kolonne
+    C_timeline = 
     S_vec = np.zeros(N+1)
     S[0] = 2*gamma*c_eq
     
     V_matrix = R * C_current + S_vec
     
-    #iterate C by solving L C_next = V
-
+    #iterate C by solving L * C_next = V
+    C
 
 
