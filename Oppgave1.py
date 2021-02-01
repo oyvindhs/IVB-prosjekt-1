@@ -14,12 +14,12 @@ dz = L / N
 
 # Diffusjonsparameter
 def K(z):
-  
-  K_0 = 10−3 #m^2
-  K_a = 2 * 10**(−2) #m^^2
-  z_a = 7 #m
-  K_b = 5 * 10**(−2) #m^2
-  z_b = 10 #m
+    
+    K_0 = 10**(-3) #m^2
+    K_a = 2*10**(−2) #m^2
+    z_a = 7 #m
+    K_b = 5 * 10**(−2) #m^2
+    z_b = 10 #m
   
   return K_0 + K_a*(z/z_a)*np.exp(-z/z_a) + (K_b*(L-z)/z_b) * np.exp(-(-L-z)/z_b)
 
@@ -34,7 +34,7 @@ alpha = dt / (2 * dz**2)
 gamma = 2*alpha*k_w*dz*(1 - (1 - (K_1 - K_0) / (2*K_0)))
 K_merket = np.zeros(N-2)
 for m in range(1, N): #OBS! Riktig lengde på K_merket?
-  K_merket[m] = K_ray[m+1] - K_ray[m-1] 
+    K_merket[m] = K_ray[m+1] - K_ray[m-1] 
   
 
 L_upper = np.zeros(N-1)
