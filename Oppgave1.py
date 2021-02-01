@@ -5,13 +5,15 @@ This is a temporary script file.
 """
 
 import numpy as np
+from scipy.sparse import diags
+from matplotlib import pyplot as plt
 
 L = 100 #meter
 T = 1
 N = 100 # N + 1 elementer
 dt = 1
 dz = L / N
-k_w = 6.97 * ^^10(-5) #m/s
+k_w = 6.97*10**(-5) #m/s
 
 # Diffusjonsparameter
 def K(z):
@@ -32,9 +34,9 @@ K_ray = K(np.linspace(0, L, N+1))
 # Konstrueerer tridiagonal matrise
 
 alpha = dt / (2 * dz**2)
-gamma = 2*alpha*k_w*dz*(1 - (1 - (K_1 - K_0) / (2*K_0)))
+gamma = 2*alpha*k_w*dz*(1 - (K_ray[1] - K_ray[0]) / (2*K_ray[0]))
 K_merket = np.zeros(N-2)
-for m in range(1, N): #OBS! Riktig lengde på K_merket?
+for m in range(1, N-2): #OBS! Riktig lengde på K_merket?
     K_merket[m] = K_ray[m+1] - K_ray[m-1] 
   
 
@@ -46,6 +48,3 @@ L_main = np.zeros(N)
 L_lower = np.zeros(N-1)
 
 L = diags([L_upper, L_main, L_lower], offsets = [1, 0, -1])
-
-
-
