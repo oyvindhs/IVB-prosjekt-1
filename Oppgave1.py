@@ -10,7 +10,7 @@ from matplotlib import pyplot as plt
 from scipy.integrate import simps
 
 L = 100 #meter
-T = 180 #år
+T = 180 * 24 #år
 N = 100 # N + 1 elementer
 dt = 1
 dz = L / N
@@ -108,8 +108,8 @@ def simulate():
     S_vec[0] = 2*gamma*c_eq
     C_vec = np.zeros(N+1)
     
-    for t in range(T):
+    for t in range(T/dt):
         S_timeline.append(C_vec)
-        C_vec = iterate()
+        C_vec = iterate(C_vec)
     
     
