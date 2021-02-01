@@ -96,12 +96,14 @@ def tdma(A, b):
     return x
 
 def simulate():
+    S_timeline = np.array()
     S_vec = np.zeros(N+1)
-    S[0] = 2*gamma*c_eq
+    S_vec[0] = 2*gamma*c_eq
     
     V_matrix = R * C_current + S_vec
     
     #iterate C by solving L C_next = V
-
+    C_next = tdma(L, V)
+    S_timeline.append(C_next)
 
 
