@@ -99,11 +99,12 @@ def simulate():
     S_timeline = np.array()
     S_vec = np.zeros(N+1)
     S_vec[0] = 2*gamma*c_eq
+    C_vec = np.zeros(N+1)
     
-    V_matrix = R * C_current + S_vec
+    V_matrix = R * C_vec + S_vec
     
     #iterate C by solving L C_next = V
     C_next = tdma(L, V)
-    S_timeline.append(C_next)
+    S_timeline.append(C_vec)
 
 
