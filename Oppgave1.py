@@ -15,13 +15,13 @@ dz = L / N
 # Diffusjonsparameter
 def K(z):
     
-    K_0 = 10**(-3) #m^2
-    K_a = 2*10**(−2) #m^2
+    K_0 = 10**(-3) 
+    K_a = 2*10**(-2) 
     z_a = 7 #m
-    K_b = 5 * 10**(−2) #m^2
+    K_b = 5 * 10**(-2) #m^2
     z_b = 10 #m
   
-  return K_0 + K_a*(z/z_a)*np.exp(-z/z_a) + (K_b*(L-z)/z_b) * np.exp(-(-L-z)/z_b)
+    return K_0 + K_a*(z/z_a)*np.exp(-z/z_a) + (K_b*(L-z)/z_b) * np.exp(-(-L-z)/z_b)
 
 # Konstruerer array med diffusjonsjonsparameter K_n for vann-element n
 K_ray = K(np.linspace(0, L, N+1))
