@@ -77,7 +77,8 @@ for i in range(2, N):
 R_lower.append(2*alpha*K_ray[N])
 
 
-L = diags([L_upper, L_main, L_lower], offsets = [1, 0, -1])
+L = diags([L_upper, L_mid, L_lower], offsets = [1, 0, -1])
+R = diags([R_upper, R_mid, R_lower], offsets = [1, 0, -1])
 
 
 
