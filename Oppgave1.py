@@ -7,6 +7,7 @@ This is a temporary script file.
 import numpy as np
 from scipy.sparse import diags
 from matplotlib import pyplot as plt
+from scipy.integrate import simps
 
 L = 100 #meter
 T = 180 #år
@@ -80,15 +81,36 @@ R_lower.append(2*alpha*K_ray[N])
 L = diags([L_upper, L_mid, L_lower], offsets = [1, 0, -1])
 R = diags([R_upper, R_mid, R_lower], offsets = [1, 0, -1])
 
+#Fra hjelpekode på BB:
+#Løser matriseligning
+def tdma_solver(a, b, c, d):
+    N = len(d)
+    c_ = np.zeros(N-1)
+    d_ = np.zeros(N)
+    x  = np.zeros(N)
+    c_[0] = c[0]/b[0]
+    d_[0] = d[0]/b[0]
+    for i in range(1, N-1):
+        c_[i] = c[i]/(b[i] - a[i-1]*c_[i-1])
+    for i in range(1, N):
+        d_[i] = (d[i] - a[i-1]*d_[i-1])/(b[i] - a[i-1]*c_[i-1])
+    x[-1] = d_[-1]
+    for i in range(N-2, -1, -1):
+        x[i] = d_[i] - c_[i]*x[i+1]
+    return x
 
-
-
-
+def tdma(A, b):
+    # Solves Ax = b to find x
+    x = tdma_solver(A.diagonal(-1), A.diagonal(0), A.diagonal(1), b)
+    return x
 
 def simulate():
     S_vec = np.zeros(N+1)
     S[0] = 2*gamma*c_eq
-
+    
+    V_matrix = R * C_current + S_vec
+    
+    #iterate C by solving L C_next = V
 
 
 
