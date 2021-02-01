@@ -40,40 +40,27 @@ K_merket = np.zeros(N-2)
 for m in range(1, N-2): #OBS! Riktig lengde på K_merket?
     K_merket[m] = K_ray[m+1] - K_ray[m-1] 
   
-
 #Konstruerer de tre diagonalene i L-matrisen (av hhv. lengde N, N + 1, N), ut fra oppgitt matrise
 L_upper = [-2*alpha*K_ray[0]]
 for i in range(1, N):
     L_upper.append((-alpha/4)*K_merket[i] - alpha*K_ray[i])
   
-
 L_mid = [1 + 2*alpha*K_ray[0] + gamma]
 for i in range(1, N + 1):
     L_mid.append((1 + 2*alpha*K_ray[i]))
   
-
 L_lower = [(alpha/4)*K_merket[1] - alpha*K_ray[1]]
 for i in range(2, N):
     L_lower.append((alpha/4)*K_merket[i] - alpha*K_ray[i])
 L_lower.append(-2*alpha*K_ray[N])
 
-#Konstruerer de tre diagonalene i R-matrisen (av hhv. lengde N, N + 1, N), ut fra oppgitt matrise
-
-
-R_upper = [+2*alpha*K_ray[0]]
-for i in range(1, N):
-    R_upper.append((+alpha/4)*K_merket[i] + alpha*K_ray[i])
+#Konstruerer de tre diagonalene i R-matrisen (av hhv. lengde N, N + 1, N), ut fra oppgitt matrise (der en ser at de er helt like L, bare med motsatt fortegn)
+R_upper = - L_upper
  
-
-R_mid = [1 - 2*alpha*K_ray[0] - gamma]
-for i in range(1, N + 1):
-    R_mid.append((1 - 2*alpha*K_ray[i]))
+R_mid = - L_mid
   
-
-R_lower = [(-alpha/4)*K_merket[1] + alpha*K_rat[1]]
-for i in range(2, N):
-    R_lower.append((-alpha/4)*K_merket[i] + alpha*K_rat[i])
-R_lower.append(2*alpha*K_ray[N])
+R_lower = - L_lower
 
 
 L = diags([L_upper, L_main, L_lower], offsets = [1, 0, -1])
+R = diags([R_upper, R_main, R_lower], offsets = [1, 0, -1])
