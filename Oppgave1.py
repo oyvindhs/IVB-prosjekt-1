@@ -69,8 +69,8 @@ R_lower = [-x for x in L_lower]
 
 
 
-L = diags([L_upper, L_mid, L_lower], offsets = [1, 0, -1])
-R = diags([R_upper, R_mid, R_lower], offsets = [1, 0, -1])
+L_matrix = diags([L_upper, L_mid, L_lower], offsets = [1, 0, -1])
+R_matrix = diags([R_upper, R_mid, R_lower], offsets = [1, 0, -1])
 
 #Fra hjelpekode på BB:
 #Løser matriseligning
@@ -101,10 +101,8 @@ def simulate():
     S_vec[0] = 2*gamma*c_eq
     C_vec = np.zeros(N+1)
     
-    V_matrix = R * C_vec + S_vec
+    V_matrix = R_matrix * C_vec + S_vec
     
     #iterate C by solving L C_next = V
-    C_next = tdma(L, V)
+    C_next = tdma(L_matrix, V_matrix)
     S_timeline.append(C_vec)
-
-
