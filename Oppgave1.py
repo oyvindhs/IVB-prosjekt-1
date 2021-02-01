@@ -1,8 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Spyder Editor
-This is a temporary script file.
-"""
 
 import numpy as np
 from scipy.sparse import diags
@@ -95,7 +90,7 @@ def tdma(A, b):
     x = tdma_solver(A.diagonal(-1), A.diagonal(0), A.diagonal(1), b)
     return x
 
-def iterate():
+def iterate(C_vec, R_matrix, S_vec, L_matrix):
     V_matrix = R_matrix.dot(C_vec) + S_vec
     #iterate C by solving L C_next = V
     C_vec = tdma(L_matrix, V_matrix)
@@ -103,13 +98,19 @@ def iterate():
     return C_vec
 
 def simulate():
-    S_timeline = np.array()
+    C_timeline = []
     S_vec = np.zeros(N+1)
     S_vec[0] = 2*gamma*c_eq
     C_vec = np.zeros(N+1)
     
-    for t in range(T/dt):
-        S_timeline.append(C_vec)
-        C_vec = iterate(C_vec)
+    for t in range(int(T/dt)):
+        C_timeline.append(C_vec)
+        C_vec = iterate(C_vec, R_matrix, S_vec, L_matrix)    
+        
+    return C_timeline # [tidspunkt][koordinat]
+
     
-    
+output = simulate()   
+
+
+print(output[1])
