@@ -95,14 +95,21 @@ def tdma(A, b):
     x = tdma_solver(A.diagonal(-1), A.diagonal(0), A.diagonal(1), b)
     return x
 
+def iterate():
+    V_matrix = R_matrix.dot(C_vec) + S_vec
+    #iterate C by solving L C_next = V
+    C_vec = tdma(L_matrix, V_matrix)
+    
+    return C_vec
+
 def simulate():
     S_timeline = np.array()
     S_vec = np.zeros(N+1)
     S_vec[0] = 2*gamma*c_eq
     C_vec = np.zeros(N+1)
     
-    V_matrix = R_matrix.dot(C_vec) + S_vec
+    for t in range(T):
+        S_timeline.append(C_vec)
+        C_vec = iterate()
     
-    #iterate C by solving L C_next = V
-    C_next = tdma(L_matrix, V_matrix)
-    S_timeline.append(C_vec)
+    
