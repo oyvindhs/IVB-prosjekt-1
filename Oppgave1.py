@@ -38,8 +38,8 @@ K_ray = K(np.linspace(0, L, N+1))
 
 alpha = dt / (2 * dz**2)
 gamma = 2*alpha*k_w*dz*(1 - (K_ray[1] - K_ray[0]) / (2*K_ray[0]))
-K_merket = np.zeros(N)
-for m in range(1, N): #OBS! Riktig lengde på K_merket?
+K_merket = np.zeros(N-2)
+for m in range(1, N-2): #OBS! Riktig lengde på K_merket?
     K_merket[m] = K_ray[m+1] - K_ray[m-1] 
   
 
@@ -101,7 +101,7 @@ def simulate():
     S_vec[0] = 2*gamma*c_eq
     C_vec = np.zeros(N+1)
     
-    V_matrix = R_matrix * C_vec + S_vec
+    V_matrix = R_matrix.dot(C_vec) + S_vec
     
     #iterate C by solving L C_next = V
     C_next = tdma(L_matrix, V_matrix)
