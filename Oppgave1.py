@@ -35,6 +35,7 @@ L_lower = np.zeros(N-1)
 L = diags([L_upper, L_main, L_lower], offsets = [1, 0, -1])
 R = diags([R_upper, R_main, R_lower], offsets = [1, 0, -1])
 
+ print("hallo")
 
 
 
