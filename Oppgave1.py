@@ -24,6 +24,7 @@ def K(z):
 # Konstrueerer diagonal matrise
 
 alpha = dt / (2 * dz**2)
+gamma = 2*alpha*k_w*dz*(1 - (1 - (K_1 - K_0) / (2*K_0))
 K_array = np.zeros(N + 1)
 
 
@@ -33,3 +34,7 @@ L_lower = np.zeros(N-1)
 
 L = diags([L_upper, L_main, L_lower], offsets = [1, 0, -1])
 R = diags([R_upper, R_main, R_lower], offsets = [1, 0, -1])
+
+
+
+
