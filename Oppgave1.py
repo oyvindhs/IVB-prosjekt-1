@@ -56,11 +56,18 @@ L_lower.append(-2*alpha*K_ray[N])
 
 #Konstruerer de tre diagonalene i R-matrisen (av hhv. lengde N, N + 1, N), ut fra oppgitt matrise
 
-R_upper = [-x for x in L_upper]
- 
-R_mid =  [-x for x in L_mid]
+R_upper = [2*alpha*K_ray[0]]
+for i in range(1, N):
+    R_upper.append((alpha/4)*K_merket[i] + alpha*K_ray[i])
   
-R_lower = [-x for x in L_lower]
+R_mid = [1 - 2*alpha*K_ray[0] - gamma]
+for i in range(1, N + 1):
+    R_mid.append((1 - 2*alpha*K_ray[i]))
+  
+R_lower = [(-alpha/4)*K_merket[1] + alpha*K_ray[1]]
+for i in range(2, N):
+    R_lower.append((-alpha/4)*K_merket[i] + alpha*K_ray[i])
+R_lower.append(2*alpha*K_ray[N])
 
 
 
