@@ -6,7 +6,7 @@ from scipy.integrate import simps
 
 L = 100 #meter
 T = 180 * 24 #år
-N = 100 # N + 1 elementer
+N = 1000 # N + 1 elementer
 dt = 1
 dz = L / N
 k_w = 6.97*10**(-5) #m/s
