@@ -121,7 +121,35 @@ def simulate():
     return C_timeline # [tidspunkt][koordinat]
 
     
-output = simulate()   
+output = simulate()  
+
+t = np.linspace(0, T, len(output)) 
+
+max_ar = np.zeros(len(output))
+min_ar = np.zeros(len(output))
+for i in range(1, len(output)):
+    max_ar[i] = max(output[i])
+    min_ar[i] = min(output[i])
 
 
-print(output[1])
+plt.figure(figsize=(12,8))
+plt.plot(t, max_ar)
+plt.plot(t, min_ar)
+plt.show()
+
+plt.figure(figsize=(12,6))
+#for i in range(0, len(output),):
+plt.plot(output[0], -np.linspace(0, L, N + 1)) #t = 0
+plt.plot(output[1], -np.linspace(0, L, N + 1)) #t = 60*60s = 1h
+plt.plot(output[2], -np.linspace(0, L, N + 1))
+plt.plot(output[3], -np.linspace(0, L, N + 1))
+plt.plot(output[4], -np.linspace(0, L, N + 1))
+plt.plot(output[5], -np.linspace(0, L, N + 1))
+plt.plot(output[6], -np.linspace(0, L, N + 1))
+plt.plot(output[7], -np.linspace(0, L, N + 1))
+plt.plot(output[10], -np.linspace(0, L, N + 1)) #t = 60*60*10s = 10h
+plt.plot(output[50], -np.linspace(0, L, N + 1)) #t = 50h
+plt.plot(output[500], -np.linspace(0, L, N + 1)) #t = 500h = ca 21d
+plt.plot(output[2000], -np.linspace(0, L, N + 1)) #t = 2000h = ca 83d
+plt.plot(output[len(output)-1], -np.linspace(0, L, N + 1)) #t = 180d
+plt.show()
