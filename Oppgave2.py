@@ -138,18 +138,18 @@ def simulate():
         
         S_cur = S_next
         
-    print("Simulated ", T, " seconds in", T/dt, " intervals. \n")
+    print("\n Simulated ", T, " seconds in", T/dt, " intervals. \n")
     print("Depth: ", L, "consisting og ", N+1, "elements. \n")
     return C_timeline # [tidspunkt][koor"dinat]
-
-
+#-------------------------------------------------------------------------------------------------------
+#Task 1
 """Plot the concentration as a function of depth, for the times 0, 2.5, 5 and 10 years into the simulation.
-Comment on the results, in light of the illustration in Fig. 2."""
+Comment on the results, in light of the illustration in Fig. 2. Starting at eq. """
 
 output = simulate()  
 
 #OBS, magiske tall!
-
+"""
 time_zero = output[0]
 time_twoandhalf = output[91] 
 time_five = output[182]
@@ -161,5 +161,29 @@ plt.plot(time_twoandhalf, -np.linspace(0, L, N+1))
 plt.plot(time_five, -np.linspace(0, L, N+1))
 plt.plot(time_ten, -np.linspace(0, L, N+1))
 plt.show()
+"""
+#-------------------------------------------------------------------------------------------------------
+#Task 3
+"""Plot the total mass of DIC in the global oceans, as a function of time, for the ye"ars 2020–2"030"""
 
- 
+mass_ray = np.zeros(len(output))
+time_ray = np.linspace(0, T, len(output))
+for i in range(len(output)):
+    mass = simps(output[i],np.linspace(0, L, N+1) )
+    mass_ray[i] = mass * 12 * 10**(-3) * 360 * 10**12 #kg per column x sea surface
+"""
+plt.figure()
+plt.plot(time_ray, mass_ray)
+plt.show()
+"""
+#-------------------------------------------------------------------------------------------------------
+#Task 4
+
+"""Find the amount of CO2 absorbed by the entire global ocean in a year by looking at the mass in the
+water column at the start of the simulation, compared to the mass at the end of the simulation, and
+take the average over the 10 years."""
+
+val = (mass_ray[-1] - mass_ray[0])/10
+print("Average increase in mass of DIC in one year: ", round(val/1000,0), " metric tons." )
+
+
