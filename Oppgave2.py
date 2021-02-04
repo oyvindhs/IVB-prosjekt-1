@@ -15,8 +15,8 @@ from numba import jit
 
 L = 4000 #meter
 T = 10*365*24*60*60 #sek
-N = 1000 # N + 1 elementer
-dt = 60*60
+N = 40000 # N + 1 elementer
+dt = 60*60*24
 dz = L / N
 k_w = 6.97*10**(-5) #m/s
 
@@ -24,7 +24,7 @@ k_w = 6.97*10**(-5) #m/s
 #Funksjon for av co2 i atmosfæren. Returnerer C_eq(tid)
 def c_eq(t):
     
-    return ((415) + 2.3 * (t/(365*24*60*60))) * 5060*10**(-6)
+    return (415 + 2.3 * (t/(365*24*60*60))) * 5060*10**(-6)
     
 
 # Diffusjonsparameter
@@ -125,21 +125,21 @@ def simulate():
     S_cur[0] = 2 * gamma * c_eq(0)
     S_next = np.zeros(N+1)
     C_vec = np.ones(N+1)*2.1 #mol/m^3
-    
     for t in range(0, T, dt):
         
-        if (t%(10**(7)) == 0):
+        if (t%(10**(6)) == 0):
             print(round(t/T, 3)*100, "%")
             
         
-        S_next = 2*gamma*c_eq(t+dt)
+        S_next[0] = 2*gamma*c_eq(t+dt)
         
         C_timeline.append(C_vec)
         C_vec = iterate_C(C_vec, R_matrix, S_cur, S_next, L_matrix)
         
         S_cur = S_next
         
-    print("100%")
+    print("Simulated ", T, " seconds in", T/dt, " intervals. \n")
+    print("Depth: ", L, "consisting og ", N+1, "elements. \n")
     return C_timeline # [tidspunkt][koor"dinat]
 
 
@@ -150,20 +150,16 @@ output = simulate()
 
 #OBS, magiske tall!
 
-print("Elementer i Output:", len(output))
 time_zero = output[0]
-time_twoandhalf = output[21900]
-time_five = output[43800]
-time_ten = output[87599]
+time_twoandhalf = output[91] 
+time_five = output[182]
+time_ten = output[364]
 
 plt.figure()
 plt.plot(time_zero, -np.linspace(0, L, N+1))
 plt.plot(time_twoandhalf, -np.linspace(0, L, N+1))
 plt.plot(time_five, -np.linspace(0, L, N+1))
 plt.plot(time_ten, -np.linspace(0, L, N+1))
-
 plt.show()
-
-
 
  
