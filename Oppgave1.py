@@ -3,6 +3,7 @@ import numpy as np
 from scipy.sparse import diags
 from matplotlib import pyplot as plt
 from scipy.integrate import simps
+from numba import jit
 
 L = 100 #meter
 T = 180 * 24 #år
@@ -76,6 +77,7 @@ R_matrix = diags([R_upper, R_mid, R_lower], offsets = [1, 0, -1])
 
 #Fra hjelpekode på BB:
 #Løser matriseligning
+@jit(nopython = True)
 def tdma_solver(a, b, c, d):
     N = len(d)
     c_ = np.zeros(N-1)
@@ -111,6 +113,8 @@ def simulate():
     C_vec = np.zeros(N+1)
     
     for t in range(int(T/dt)):
+        if (t%(10**(7)) == 0):
+            print(round(t/T, 3)*100, "%")
         C_timeline.append(C_vec)
         C_vec = iterate(C_vec, R_matrix, S_vec, L_matrix)    
         
