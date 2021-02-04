@@ -117,7 +117,7 @@ def simulate():
             print(round(t/T, 3)*100, "%")
         C_timeline.append(C_vec)
         C_vec = iterate(C_vec, R_matrix, S_vec, L_matrix)    
-        
+    print("100%")
     return C_timeline # [tidspunkt][koordinat]
 
     
