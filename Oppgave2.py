@@ -24,7 +24,7 @@ k_w = 6.97*10**(-5) #m/s
 #Funksjon for av co2 i atmosfæren. Returnerer C_eq(tid)
 def c_eq(t):
     
-    return ((415) + 2.3 * (t/(365*24**60*60))) * 5060*10**(-6)
+    return ((415) + 2.3 * (t/(365*24*60*60))) * 5060*10**(-6)
     
 
 # Diffusjonsparameter
