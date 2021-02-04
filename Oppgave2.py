@@ -139,7 +139,7 @@ def simulate():
         
         S_cur = S_next
         
-        
+    print("100%")
     return C_timeline # [tidspunkt][koor"dinat]
 
 
