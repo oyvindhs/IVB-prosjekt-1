@@ -5,6 +5,17 @@ from matplotlib import pyplot as plt
 from scipy.integrate import simps
 from numba import jit
 
+CB91_Blue = '#2CBDFE'
+CB91_Green = '#47DBCD'
+CB91_Pink = '#F3A0F2'
+CB91_Purple = '#9D2EC5'
+CB91_Violet = '#661D98'
+CB91_Amber = '#F5B14C'
+color_list = [CB91_Blue, CB91_Pink, CB91_Green, CB91_Amber,
+              CB91_Purple, CB91_Violet]
+plt.rcParams['axes.prop_cycle'] = plt.cycler(color=color_list)
+
+
 L = 100 #meter
 T = 180 * 24 #år
 N = 1000 # N + 1 elementer
