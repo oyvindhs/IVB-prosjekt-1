@@ -12,6 +12,16 @@ from matplotlib import pyplot as plt
 from scipy.integrate import simps
 from numba import jit
 
+CB91_Blue = '#2CBDFE'
+CB91_Green = '#47DBCD'
+CB91_Pink = '#F3A0F2'
+CB91_Purple = '#9D2EC5'
+CB91_Violet = '#661D98'
+CB91_Amber = '#F5B14C'
+color_list = [CB91_Blue, CB91_Pink, CB91_Green, CB91_Amber,
+              CB91_Purple, CB91_Violet]
+plt.rcParams['axes.prop_cycle'] = plt.cycler(color=color_list)
+secinyear = 365*24*60*60
 
 L = 4000 #meter
 T = 10*365*24*60*60 #sek
@@ -21,7 +31,7 @@ dz = L / N
 k_w = 6.97*10**(-5) #m/s
 
 
-#Funksjon for av co2 i atmosfæren. Returnerer C_eq(tid)
+#Funksjon av co2 i atmosfæren. Returnerer C_eq(tid)
 def c_eq(t):
     
     return (415 + 2.3 * (t/(365*24*60*60))) * 5060*10**(-6)
@@ -149,19 +159,27 @@ Comment on the results, in light of the illustration in Fig. 2. Starting at eq. 
 output = simulate()  
 
 #OBS, magiske tall!
-"""
+
 time_zero = output[0]
 time_twoandhalf = output[91] 
 time_five = output[182]
 time_ten = output[364]
 
-plt.figure()
-plt.plot(time_zero, -np.linspace(0, L, N+1))
-plt.plot(time_twoandhalf, -np.linspace(0, L, N+1))
-plt.plot(time_five, -np.linspace(0, L, N+1))
-plt.plot(time_ten, -np.linspace(0, L, N+1))
+fig = plt.figure()
+plt.title("DIC concentration down to 4000 m over 10 years")
+plt.ylim(-L)
+plt.plot(time_zero, -np.linspace(0, L, N+1), label = "t = 0")
+plt.plot(time_twoandhalf, -np.linspace(0, L, N+1), label = "t = 2.5 years")
+plt.plot(time_five, -np.linspace(0, L, N+1), label = "t = 5 years")
+plt.plot(time_ten, -np.linspace(0, L, N+1), label = "t = 10 years")
+plt.ylabel("Depth [meters]")
+plt.xlabel(r'Concentration [$\frac{mol}{m^3}$]')
+plt.legend(frameon=False)
+plt.grid()
 plt.show()
-"""
+
+plt.savefig("2.1.jpg")
+
 #-------------------------------------------------------------------------------------------------------
 #Task 3
 """Plot the total mass of DIC in the global oceans, as a function of time, for the ye"ars 2020–2"030"""
@@ -171,11 +189,20 @@ time_ray = np.linspace(0, T, len(output))
 for i in range(len(output)):
     mass = simps(output[i],np.linspace(0, L, N+1) )
     mass_ray[i] = mass * 12 * 10**(-3) * 360 * 10**12 #kg per column x sea surface
-"""
-plt.figure()
-plt.plot(time_ray, mass_ray)
+
+fig = plt.figure()
+plt.title("Total DIC mass in oceans, 2020-2030")
+plt.plot(time_ray / secinyear, mass_ray / (10**15))
+plt.ylim(bottom = mass_ray[0]*10**(-15))
+plt.xlim(left = 0, right = 10)
+plt.ylabel('Mass [$10^15$ Kg]')
+plt.xlabel("Years")
+#plt.legend(frameon=False)
+plt.grid()
 plt.show()
-"""
+
+plt.savefig("2.2.jpeg")
+
 #-------------------------------------------------------------------------------------------------------
 #Task 4
 
@@ -185,5 +212,4 @@ take the average over the 10 years."""
 
 val = (mass_ray[-1] - mass_ray[0])/10
 print("Average increase in mass of DIC in one year: ", round(val/1000,0), " metric tons." )
-
 
