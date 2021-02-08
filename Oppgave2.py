@@ -11,6 +11,7 @@ from scipy.sparse import diags
 from matplotlib import pyplot as plt
 from scipy.integrate import simps
 from numba import jit
+plt.rcParams['svg.fonttype'] = 'none'
 
 CB91_Blue = '#2CBDFE'
 CB91_Green = '#47DBCD'
@@ -26,7 +27,7 @@ secinyear = 365*24*60*60
 L = 4000 #meter
 T = 10*365*24*60*60 #sek
 N = 40000 # N + 1 elementer
-dt = 60*60*24
+dt = 60*60*24 # et døgn
 dz = L / N
 k_w = 6.97*10**(-5) #m/s
 
@@ -178,7 +179,7 @@ plt.legend(frameon=False)
 plt.grid()
 plt.show()
 
-plt.savefig("2.1.jpg")
+plt.savefig("Plot1.pdf")
 
 #-------------------------------------------------------------------------------------------------------
 #Task 3
@@ -201,7 +202,7 @@ plt.xlabel("Years")
 plt.grid()
 plt.show()
 
-plt.savefig("2.2.jpeg")
+plt.savefig("Plot2.pdf")
 
 #-------------------------------------------------------------------------------------------------------
 #Task 4
@@ -212,4 +213,3 @@ take the average over the 10 years."""
 
 val = (mass_ray[-1] - mass_ray[0])/10
 print("Average increase in mass of DIC in one year: ", round(val/1000,0), " metric tons." )
-
