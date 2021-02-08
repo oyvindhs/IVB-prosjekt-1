@@ -17,12 +17,16 @@ plt.rcParams['axes.prop_cycle'] = plt.cycler(color=color_list)
 
 
 L = 100 #meter
-T = 180 * 24 #år
+T = 180 * 24 * 60 * 60  #sekunder
 N = 1000 # N + 1 elementer
-dt = 1
+dt = 60*60
 dz = L / N
-k_w = 6.97*10**(-5) #m/s
-c_eq = 2.1 #mol/m^3
+a = 6.97e-7 #s/m
+u = 10 #m/s
+k_w = a*u**2  #m/s, (6.97e-5)
+p_co2 = 415e-6 #atm
+H = 5060 #mol/(m^3atm)
+c_eq = H*p_co2 #mol/m^3 (ca. 2.1)
 
 # Diffusjonsparameter
 def K(z):
